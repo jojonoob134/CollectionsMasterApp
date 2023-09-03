@@ -16,13 +16,11 @@ namespace CollectionsMasterConsoleUI
 
             #region Arrays
             //TODO: Create an integer Array of size 50
-            int[] myArray = new int[50];
-            //TODO: Create a method to populate the number array with 50 random numbers that are between 0 and 50
-            for (int i = 1; i <= myArray.Length; i++)
-            {
-                myArray[i - 1] = i;
-            }
 
+            //TODO: Create a method to populate the number array with 50 random numbers that are between 0 and 50
+            Populater(1, 50);
+            int[] myArray = Populater(1, 50);
+            Console.WriteLine(myArray.Length);
             //TODO: Print the first number of the array
             int first = myArray[0];
             //TODO: Print the last number of the array            
@@ -40,20 +38,22 @@ namespace CollectionsMasterConsoleUI
             
 
             Console.WriteLine("All Numbers Reversed:");
-            Array.Reverse(myArray);
-            experiment();
-            Array.Reverse(myArray);
+            myArray = ReverseArray(myArray);
+            //experiment(myArray);
+            myArray = ReverseArray(myArray);
+            Console.WriteLine();
+            //experiment(myArray);
+
 
             Console.WriteLine("-------------------");
 
             //TODO: Create a method that will set numbers that are a multiple of 3 to zero then print to the console all numbers
             Console.WriteLine("Multiple of three = 0: ");
 
-            for (int i = 1; i <= myArray.Length; i+= 3)
-            {
-                myArray[i - 1] = 0;
-            }
-
+            //experiment(myArray);
+            ThreeKiller(myArray);
+            Console.WriteLine();
+            experiment(myArray);
 
             Console.WriteLine("-------------------");
 
@@ -73,13 +73,15 @@ namespace CollectionsMasterConsoleUI
             List<int> myList = new List<int>();
 
             //TODO: Print the capacity of the list to the console
-            Console.WriteLine(myList.Count);
+            Console.WriteLine(myList);
 
             //TODO: Populate the List with 50 random numbers between 0 and 50 you will need a method for this            
-            for (int i = 0; i < 50; i++)
-            {
-                myList.Add(i);
-            }
+            //for (int i = 0; i < 50; i++)
+            //{
+            //    myList.Add(i);
+            //}
+
+            myList = Populater(myList);
 
             //TODO: Print the new capacity
             Console.WriteLine(myList.Count);
@@ -107,7 +109,7 @@ namespace CollectionsMasterConsoleUI
             //TODO: Create a method that will remove all odd numbers from the list then print results
             Console.WriteLine("Evens Only!!");
 
-            myList.RemoveAll(myList => myList % 2 != 0);
+            OddKiller(myList);
 
             Console.WriteLine("------------------");
 
@@ -131,29 +133,36 @@ namespace CollectionsMasterConsoleUI
             myList.Clear();
 
             #endregion
+
         }
-        public static void experiment()
+        public static void experiment(int[] myArray)
         {
-            int[] myArray = new int[50];
+            
             for (int i = 1; i <= myArray.Length; i++)
-            {
-                myArray[i - 1] = i;
-            }
-            Array.Reverse(myArray);
-            for (int i = 1;i <= myArray.Length; i++)
             {
                 Console.WriteLine(myArray[i - 1]);
             }
         }
 
-        public static void ThreeKiller(int[] numbers)
+        public static int[] ThreeKiller(int[] myArray)
         {
-            
+            int l = 0;
+            foreach (int i in myArray)
+            {
+                int three = i % 3;
+                if (three == 0)
+                {
+                    myArray[l] = 0;
+                }
+                l++;
+            }
+            return myArray;
         }
 
-        private static void OddKiller(List<int> numberList)
+        private static List<int> OddKiller(List<int> numberList)
         {
-            
+            numberList.RemoveAll(myList => myList % 2 != 0);
+            return numberList;
         }
 
         public static void NumberChecker()
@@ -179,21 +188,33 @@ namespace CollectionsMasterConsoleUI
             }
         }
 
-        private static void Populater(List<int> numberList)
+        public static List<int> Populater(List<int> numberList)
         {
             Random rng = new Random();
-
+            for (int i = 0; i < 50; i++)
+            { 
+                int ranNum = rng.Next(1, 50);
+                numberList.Add(ranNum);
+            }
+            return numberList;
         }
+        
 
-        private static void Populater(int[] numbers)
+        public static int[] Populater(int min, int max)
         {
+            int[] myArray = new int[50];
             Random rng = new Random();
-
+            for (int i = 0; i < myArray.Length; i++)
+            {
+                myArray[i] = rng.Next(min,max + 1);
+            }
+            return myArray;
         }
 
-        private static void ReverseArray(int[] array)
+        public static int[] ReverseArray(int[] array)
         {
-            
+            Array.Reverse(array);
+            return array;
         }
         /// <summary>
         /// Generic print method will iterate over any collection that implements IEnumerable<T>
