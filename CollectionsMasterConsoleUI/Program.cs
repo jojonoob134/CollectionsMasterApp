@@ -20,14 +20,13 @@ namespace CollectionsMasterConsoleUI
             //TODO: Create a method to populate the number array with 50 random numbers that are between 0 and 50
             Populater(1, 50);
             int[] myArray = Populater(1, 50);
-            Console.WriteLine(myArray.Length);
             //TODO: Print the first number of the array
             int first = myArray[0];
             //TODO: Print the last number of the array            
             int last = myArray[myArray.Length - 1];
             Console.WriteLine("All Numbers Original");
             //UNCOMMENT this method to print out your numbers from arrays or lists
-            //NumberPrinter();
+            NumberPrinter(myArray);
             Console.WriteLine($"First number is {first} and last number is {last}");
 
             //TODO: Reverse the contents of the array and then print the array out to the console.
@@ -39,10 +38,7 @@ namespace CollectionsMasterConsoleUI
 
             Console.WriteLine("All Numbers Reversed:");
             myArray = ReverseArray(myArray);
-            //experiment(myArray);
-            myArray = ReverseArray(myArray);
-            Console.WriteLine();
-            //experiment(myArray);
+            NumberPrinter(myArray);
 
 
             Console.WriteLine("-------------------");
@@ -53,7 +49,7 @@ namespace CollectionsMasterConsoleUI
             //experiment(myArray);
             ThreeKiller(myArray);
             Console.WriteLine();
-            experiment(myArray);
+            NumberPrinter(myArray);
 
             Console.WriteLine("-------------------");
 
@@ -61,6 +57,7 @@ namespace CollectionsMasterConsoleUI
             /*      Hint: Array.____()      */
             Console.WriteLine("Sorted numbers:");
             Array.Sort(myArray);
+            NumberPrinter(myArray);
 
             Console.WriteLine("\n************End Arrays*************** \n");
             #endregion
@@ -73,13 +70,10 @@ namespace CollectionsMasterConsoleUI
             List<int> myList = new List<int>();
 
             //TODO: Print the capacity of the list to the console
-            Console.WriteLine(myList);
+            Console.WriteLine(myList.Count);
 
             //TODO: Populate the List with 50 random numbers between 0 and 50 you will need a method for this            
-            //for (int i = 0; i < 50; i++)
-            //{
-            //    myList.Add(i);
-            //}
+            
 
             myList = Populater(myList);
 
@@ -92,7 +86,7 @@ namespace CollectionsMasterConsoleUI
             //Remember: What if the user types "abc" accident your app should handle that!
             Console.WriteLine("What number will you search for in the number list?");
 
-            NumberChecker();
+            NumberChecker(myList);
 
             Console.WriteLine("-------------------");
 
@@ -101,29 +95,23 @@ namespace CollectionsMasterConsoleUI
             
             Console.WriteLine("-------------------");
 
-            foreach (int num in myList)
-            {
-                Console.WriteLine(num);
-            }
+            NumberPrinter(myList);
 
             //TODO: Create a method that will remove all odd numbers from the list then print results
             Console.WriteLine("Evens Only!!");
 
             OddKiller(myList);
-
+            NumberPrinter(myList);
             Console.WriteLine("------------------");
 
             //TODO: Sort the list then print results
             Console.WriteLine("Sorted Evens!!");
             myList.Sort();
-            foreach (int num in myList)
-            {
-                Console.WriteLine(num);
-            }
+            NumberPrinter(myList);
             Console.WriteLine("------------------");
 
             //TODO: Convert the list to an array and store that into a variable
-            int[] listArray = new int[30];
+            int[] listArray = new int[50];
             for (int i = 0; i < myList.Count; i++)
             {
                 int change = myList[i];
@@ -131,6 +119,7 @@ namespace CollectionsMasterConsoleUI
             }
             //TODO: Clear the list
             myList.Clear();
+            NumberPrinter(listArray);
 
             #endregion
 
@@ -165,26 +154,33 @@ namespace CollectionsMasterConsoleUI
             return numberList;
         }
 
-        public static void NumberChecker()
+        public static void NumberChecker(List<int> myList)
         {
-            int inList = (int.Parse(Console.ReadLine()));
-            List<int> myList = new List<int>();
             bool myBool = false;
-            for (int i = 0; i < 50; i++)
-            {
-                myList.Add(i);
-            }
-            foreach (int num in myList)
-            {
-                if (inList == num)
+            bool sameNum = false;
+            int checkNum;
+            while (!myBool)            {
+                string isNumThere = Console.ReadLine();
+                if (int.TryParse(isNumThere, out checkNum))
                 {
-                    Console.WriteLine($"yes {num} is here");
+                    foreach (int num in myList)
+                    {
+                        if (checkNum == num)
+                        {
+                            Console.WriteLine($"Yes we do have {num} in the list");
+                            sameNum = true;
+                        }
+                    }
                     myBool = true;
                 }
+                else
+                {
+                    Console.WriteLine("sorry but you did not type a number please type again a number you want");
+                }
             }
-            if (myBool == false)
+            if (!sameNum)
             {
-                Console.WriteLine("no your number is not here");
+                Console.WriteLine("this list dose not have the same number in");
             }
         }
 
