@@ -70,7 +70,7 @@ namespace CollectionsMasterConsoleUI
             List<int> myList = new List<int>();
 
             //TODO: Print the capacity of the list to the console
-            Console.WriteLine(myList.Count);
+            Console.WriteLine(myList.Capacity);
 
             //TODO: Populate the List with 50 random numbers between 0 and 50 you will need a method for this            
             
@@ -78,7 +78,7 @@ namespace CollectionsMasterConsoleUI
             myList = Populater(myList);
 
             //TODO: Print the new capacity
-            Console.WriteLine(myList.Count);
+            Console.WriteLine(myList.Capacity);
 
             Console.WriteLine("---------------------");
 
@@ -111,12 +111,7 @@ namespace CollectionsMasterConsoleUI
             Console.WriteLine("------------------");
 
             //TODO: Convert the list to an array and store that into a variable
-            int[] listArray = new int[50];
-            for (int i = 0; i < myList.Count; i++)
-            {
-                int change = myList[i];
-                listArray[i] = change;
-            }
+            int[] listArray = myList.ToArray();
             //TODO: Clear the list
             myList.Clear();
             NumberPrinter(listArray);
